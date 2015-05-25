@@ -1,0 +1,37 @@
+{
+  "name": "cls-isoflux",
+  "version": "0.0.0",
+  "description": "Easy isomorphic Flux with continuation-local proxies",
+  "main": "index.js",
+  "scripts": {
+    "build": "eslint src && babel src --out-dir lib",
+    "prepublish": "npm run build",
+    "test": "mocha --compilers js:babel/register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taion/cls-isoflux.git"
+  },
+  "keywords": [
+    "flux",
+    "isomorphic",
+    "react"
+  ],
+  "author": "Jimmy Jia",
+  "license": "CC0-1.0",
+  "bugs": {
+    "url": "https://github.com/taion/cls-isoflux/issues"
+  },
+  "homepage": "https://github.com/taion/cls-isoflux#readme",
+  "dependencies": {
+    "cls-middleware": "^1.1.0",
+    "continuation-local-storage": "^3.1.4"
+  },
+  "devDependencies": {
+    "babel": "^5.4.7",
+    "babel-eslint": "^3.1.9",
+    "chai": "^2.3.0",
+    "eslint": "^0.21.2",
+    "mocha": "^2.2.5"
+  }
+}
