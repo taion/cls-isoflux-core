@@ -1,8 +1,8 @@
 {
   "name": "cls-isoflux",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Easy isomorphic Flux with continuation-local proxies",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "eslint src && babel src --out-dir lib",
     "prepublish": "npm run build",
