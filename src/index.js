@@ -11,7 +11,7 @@ export default class Isoflux {
   }
 
   middleware = (req, res, next) => {
-    this._boundClsify(req, res, this._middlewareInternal(next));
+    this._boundClsify(req, res, () => this._middlewareInternal(next));
   };
 
   _middlewareInternal(next) {
@@ -28,23 +28,18 @@ export default class Isoflux {
   }
 
   createProxy(Class, options) {
+    class Proxy {}
     const isoflux = this;
-
-    class Proxy {
-      _getProxiedObject() {
-        return isoflux._getProxiedObject(Class, options);
-      }
-    }
 
     function defineProxiedProperty(propertyName) {
       Proxy.prototype[propertyName] = function (...args) {
-        const proxiedObject = this._getProxiedObject();
+        const proxiedObject = isoflux._getProxiedObject(Class, options);
         return proxiedObject[propertyName].apply(proxiedObject, args);
       };
     }
 
+    // Intentially capture prototype properties as well here.
     for (let propertyName in Class.prototype) {
-      // Intentially capture prototype properties as well here.
       defineProxiedProperty(propertyName);
     }
 
