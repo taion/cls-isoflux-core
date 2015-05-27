@@ -28,22 +28,26 @@ export default class Isoflux {
   }
 
   createProxy(Class, options) {
-    class Proxy {}
-    const isoflux = this;
+    const proxy = {};
 
+    const isoflux = this;
     function defineProxiedProperty(propertyName) {
-      Proxy.prototype[propertyName] = function (...args) {
+      proxy[propertyName] = function (...args) {
         const proxiedObject = isoflux._getProxiedObject(Class, options);
         return proxiedObject[propertyName].apply(proxiedObject, args);
       };
     }
 
-    // Intentially capture prototype properties as well here.
-    for (let propertyName in Class.prototype) {
-      defineProxiedProperty(propertyName);
+    // Walk up prototype chain and proxy all available prototype properties.
+    // Only handle methods for now.
+    let prototype = Class.prototype;
+    while (prototype) {
+      Object.getOwnPropertyNames(prototype).forEach(defineProxiedProperty);
+      prototype = Object.getPrototypeOf(prototype);
     }
 
-    return Proxy;
+    Object.defineProperty(proxy, 'name', {value: Class.name});
+    return proxy;
   }
 
   _getProxiedObject(Class, options) {  // eslint-disable-line no-unused-vars
