@@ -1,6 +1,6 @@
 {
   "name": "cls-isoflux",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Easy isomorphic Flux with continuation-local proxies",
   "main": "lib/index.js",
   "scripts": {
